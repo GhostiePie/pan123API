@@ -4,17 +4,20 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"time"
 )
 
-var errUser = User{
-	UserWithoutAccAndExp{
-		ClientID:     "err",
-		ClientSecret: "err",
-	},
+var errAPIClient = APIClient{
+	"err",
+	"err",
 	"err",
 	time.Time{},
+	"err",
+	"err",
+	"err",
+	&http.Client{},
 }
 
 func handleErrWithPrintln(msg string, err error) bool {
@@ -35,14 +38,6 @@ func handleErrWithFatalln(msg string, err error) bool {
 	}
 }
 
-func getPublicHeader() Header {
-	return Header{
-		Authorization: "Bearer access_token",
-		Platform:      "open_platform",
-		ContentType:   "application/json",
-	}
-}
-
 func getDefaultConfig() Config {
 	return Config{
 		Domain:         "https://open-api.123pan.com",
@@ -50,25 +45,27 @@ func getDefaultConfig() Config {
 	}
 }
 
-func readUserFromJson(jsonStr string) User {
-	user := User{}
-	err := json.Unmarshal([]byte(jsonStr), &user)
+func readAPIClientFromJson(jsonStr string) APIClient {
+	apiClient := APIClient{}
+	err := json.Unmarshal([]byte(jsonStr), &apiClient)
 	handleErrWithPrintln("Err during json.Unmarshal():", err)
-	return user
+	apiClient.HttpClient = &http.Client{}
+	return apiClient
 }
 
-func readUserFromFile(filePath string) User {
+func readAPIClientFromFile(filePath string) APIClient {
 	data, err := os.ReadFile(filePath)
 	if !handleErrWithPrintln("Err during os.ReadFile():", err) {
-		var user User
-		err := json.Unmarshal(data, &user)
+		var apiClient APIClient
+		err := json.Unmarshal(data, &apiClient)
 		if handleErrWithPrintln("Err during json.Unmarshal():", err) {
-			return errUser
+			return errAPIClient
 		} else {
-			return user
+			apiClient.HttpClient = &http.Client{}
+			return apiClient
 		}
 	} else {
-		return errUser
+		return errAPIClient
 	}
 
 }
