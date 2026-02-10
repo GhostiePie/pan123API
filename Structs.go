@@ -13,6 +13,7 @@ type Config struct {
 	//UserFile       string `json:"userFile"`
 	Domain         string `json:"domain"`
 	AccessTokenAPI string `json:"access_token_api"`
+	CreateFileAPI  string `json:"create_file_api"`
 }
 
 type Data struct {
@@ -39,19 +40,23 @@ type APIClient struct {
 }
 
 // getAccessToken 返回发送请求之后返回的body，包含accessToken和expiredAt
-func (c APIClient) getAccessTokenWithConfig(config Config) AccessTokenResponse {
+func (c APIClient) getAccessTokenWithConfig(config Config) (AccessTokenResponse, error) {
 	url := config.Domain + config.AccessTokenAPI
 	data := "clientID=" + c.ClientID + "&clientSecret=" + c.ClientSecret
 	reqBody := bytes.NewBuffer([]byte(data))
 	request, err := http.NewRequest("POST", url, reqBody)
-	handleErrWithPrintln("Err during http.NewRequest():", err)
+	if err != nil {
+		return AccessTokenResponse{}, err
+	}
 
 	request.Header.Set("Authorization", c.Authorization)
 	request.Header.Set("Content-Type", c.ContentType)
 	request.Header.Set("Platform", c.Platform)
 
 	resp, err := c.HttpClient.Do(request)
-	handleErrWithPrintln("Err during client.Do():", err)
+	if err != nil {
+		return AccessTokenResponse{}, err
+	}
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
@@ -60,37 +65,56 @@ func (c APIClient) getAccessTokenWithConfig(config Config) AccessTokenResponse {
 	}(resp.Body)
 
 	content, err := io.ReadAll(resp.Body)
-	handleErrWithPrintln("Err during io.ReadAll():", err)
+	if err != nil {
+		return AccessTokenResponse{}, err
+	}
 
 	accessTokenResponse := AccessTokenResponse{}
 	err = json.Unmarshal(content, &accessTokenResponse)
-	handleErrWithPrintln("Err during json.Unmarshal():", err)
+	if err != nil {
+		return AccessTokenResponse{}, err
+	}
 
-	return accessTokenResponse
+	return accessTokenResponse, nil
 }
 
-func (c APIClient) getAccessToken() AccessTokenResponse {
-	config := Config{
-		Domain:         "https://open-api.123pan.com",
-		AccessTokenAPI: "/api/v1/access_token",
-	}
+func (c APIClient) getAccessToken() (AccessTokenResponse, error) {
+	config := getDefaultConfig()
 	return c.getAccessTokenWithConfig(config)
 }
 
-func (c APIClient) checkAndUpdateAccessToken() {
+func (c APIClient) checkAndUpdateAccessToken() error {
 	now := time.Now()
 	cUTC := c.ExpiredAt.UTC()
 	nowUTC := now.UTC()
 	if nowUTC.After(cUTC) {
-		respBody := c.getAccessToken()
+		respBody, err := c.getAccessToken()
+		if err != nil {
+			return err
+		}
 		c.AccessToken = respBody.Data.AccessToken
 		c.ExpiredAt = respBody.Data.ExpiredAt
 	}
+	return nil
 }
 
-func (c APIClient) saveToFile(filePath string) {
+func (c APIClient) checkAndUpdateAccessTokenAndSave(filePath string) error {
+	err := c.checkAndUpdateAccessToken()
+	if err != nil {
+		return err
+	}
+	c.saveToFile(filePath)
+	return nil
+}
+
+func (c APIClient) saveToFile(filePath string) error {
 	headerStr, err := json.Marshal(c)
-	handleErrWithPrintln("Err during json.Marshal():", err)
+	if err != nil {
+		return err
+	}
 	err = os.WriteFile(filePath, headerStr, 0666)
-	handleErrWithPrintln("Err during os.WriteFile:", err)
+	if err != nil {
+		return err
+	}
+	return nil
 }

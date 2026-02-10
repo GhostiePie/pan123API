@@ -2,8 +2,6 @@ package pan123
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -20,52 +18,31 @@ var errAPIClient = APIClient{
 	&http.Client{},
 }
 
-func handleErrWithPrintln(msg string, err error) bool {
-	if err != nil {
-		fmt.Println(msg, err)
-		return true
-	} else {
-		return false
-	}
-}
-
-func handleErrWithFatalln(msg string, err error) bool {
-	if err != nil {
-		log.Fatalln(msg, err)
-		return true
-	} else {
-		return false
-	}
-}
-
 func getDefaultConfig() Config {
 	return Config{
 		Domain:         "https://open-api.123pan.com",
 		AccessTokenAPI: "/api/v1/access_token",
+		CreateFileAPI:  "/upload/v2/file/create",
 	}
 }
 
-func readAPIClientFromJson(jsonStr string) APIClient {
+func readAPIClientFromJson(jsonStr string) (APIClient, error) {
+	var err error
 	apiClient := APIClient{}
-	err := json.Unmarshal([]byte(jsonStr), &apiClient)
-	handleErrWithPrintln("Err during json.Unmarshal():", err)
+	err = json.Unmarshal([]byte(jsonStr), &apiClient)
 	apiClient.HttpClient = &http.Client{}
-	return apiClient
+	return apiClient, err
 }
 
-func readAPIClientFromFile(filePath string) APIClient {
+func readAPIClientFromFile(filePath string) (APIClient, error) {
 	data, err := os.ReadFile(filePath)
-	if !handleErrWithPrintln("Err during os.ReadFile():", err) {
-		var apiClient APIClient
-		err := json.Unmarshal(data, &apiClient)
-		if handleErrWithPrintln("Err during json.Unmarshal():", err) {
-			return errAPIClient
-		} else {
-			apiClient.HttpClient = &http.Client{}
-			return apiClient
-		}
-	} else {
-		return errAPIClient
+	if err != nil {
+		return APIClient{}, err
 	}
-
+	var apiClient APIClient
+	err = json.Unmarshal(data, &apiClient)
+	if err != nil {
+		return apiClient, err
+	}
+	return apiClient, nil
 }
