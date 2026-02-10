@@ -10,6 +10,7 @@ import (
 )
 
 type Config struct {
+	//UserFile       string `json:"userFile"`
 	Domain         string `json:"domain"`
 	AccessTokenAPI string `json:"access_token_api"`
 }
@@ -37,10 +38,16 @@ type AccessTokenResponse struct {
 	XTraceID string `json:"x-traceID"`
 }
 
+type Header struct {
+	Authorization string `json:"Authorization"`
+	Platform      string `json:"Platform"`
+	ContentType   string `json:"Content-Type"`
+}
+
 // getAccessToken 返回发送请求之后返回的body，包含accessToken和expiredAt
-func (u User) getAccessToken() AccessTokenResponse {
+func (u User) getAccessTokenWithConfig(config Config) AccessTokenResponse {
 	client := &http.Client{}
-	url := "https://open-api.123pan.com/api/v1/access_token"
+	url := config.Domain + config.AccessTokenAPI
 	data := "clientID=" + u.ClientID + "&clientSecret=" + u.ClientSecret
 	reqBody := bytes.NewBuffer([]byte(data))
 	request, err := http.NewRequest("POST", url, reqBody)
@@ -68,7 +75,14 @@ func (u User) getAccessToken() AccessTokenResponse {
 	handleErrWithPrintln("Err during json.Unmarshal():", err)
 
 	return accessTokenResponse
+}
 
+func (u User) getAccessToken() AccessTokenResponse {
+	config := Config{
+		Domain:         "https://open-api.123pan.com",
+		AccessTokenAPI: "/api/v1/access_token",
+	}
+	return u.getAccessTokenWithConfig(config)
 }
 
 func (u User) checkAndUpdateAccessToken() {
@@ -79,8 +93,14 @@ func (u User) checkAndUpdateAccessToken() {
 		respBody := u.getAccessToken()
 		u.AccessToken = respBody.Data.AccessToken
 		u.ExpiredAt = respBody.Data.ExpiredAt
-
 	}
+}
+
+func (h Header) saveToFile(filePath string) {
+	headerStr, err := json.Marshal(h)
+	handleErrWithPrintln("Err during json.Marshal():", err)
+	err = os.WriteFile(filePath, headerStr, 0666)
+	handleErrWithPrintln("Err during os.WriteFile:", err)
 }
 
 func (u User) saveToFile(filePath string) {
@@ -88,15 +108,4 @@ func (u User) saveToFile(filePath string) {
 	handleErrWithPrintln("Err during json.Marshal():", err)
 	err = os.WriteFile(filePath, userStr, 0666)
 	handleErrWithPrintln("Err during os.WriteFile:", err)
-}
-
-type Header struct {
-	Authorization string `json:"Authorization"`
-	Platform      string `json:"Platform"`
-	ContentType   string `json:"Content-Type"`
-}
-
-type Client struct {
-	Authorization string `json:"Authorization"`
-	Platform      string `json:"Platform"`
 }
