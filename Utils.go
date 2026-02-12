@@ -73,7 +73,7 @@ func (c APIClient) PostData(url string, data string) ([]byte, error) {
 	return c.Post(url, "application/json", strings.NewReader(data))
 }
 
-func splitFile(fileName string, chunkIndex int, chunkSize int) ([]byte, error) {
+func SplitFile(fileName string, chunkIndex int, chunkSize int) ([]byte, error) {
 	file, err := os.Open(fileName)
 	if err != nil {
 		return nil, err
