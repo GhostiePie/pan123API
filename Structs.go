@@ -1,9 +1,7 @@
 package pan123
 
 import (
-	"bytes"
 	"encoding/json"
-	"io"
 	"net/http"
 	"os"
 	"time"
@@ -16,15 +14,9 @@ type Config struct {
 	CreateFileAPI  string `json:"create_file_api"`
 }
 
-type Data struct {
-	AccessToken string    `json:"accessToken"`
-	ExpiredAt   time.Time `json:"expiredAt"`
-}
-
-type AccessTokenResponse struct {
+type Response struct {
 	Code     int    `json:"code"`
 	Message  string `json:"message"`
-	Data     Data   `json:"data"`
 	XTraceID string `json:"x-traceID"`
 }
 
@@ -39,74 +31,7 @@ type APIClient struct {
 	HttpClient    *http.Client `json:"-"`
 }
 
-// getAccessToken 返回发送请求之后返回的body，包含accessToken和expiredAt
-func (c APIClient) getAccessTokenWithConfig(config Config) (AccessTokenResponse, error) {
-	url := config.Domain + config.AccessTokenAPI
-	data := "clientID=" + c.ClientID + "&clientSecret=" + c.ClientSecret
-	reqBody := bytes.NewBuffer([]byte(data))
-	request, err := http.NewRequest("POST", url, reqBody)
-	if err != nil {
-		return AccessTokenResponse{}, err
-	}
-
-	request.Header.Set("Authorization", c.Authorization)
-	request.Header.Set("Content-Type", c.ContentType)
-	request.Header.Set("Platform", c.Platform)
-
-	resp, err := c.HttpClient.Do(request)
-	if err != nil {
-		return AccessTokenResponse{}, err
-	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-
-		}
-	}(resp.Body)
-
-	content, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return AccessTokenResponse{}, err
-	}
-
-	accessTokenResponse := AccessTokenResponse{}
-	err = json.Unmarshal(content, &accessTokenResponse)
-	if err != nil {
-		return AccessTokenResponse{}, err
-	}
-
-	return accessTokenResponse, nil
-}
-
-func (c APIClient) getAccessToken() (AccessTokenResponse, error) {
-	config := getDefaultConfig()
-	return c.getAccessTokenWithConfig(config)
-}
-
-func (c APIClient) checkAndUpdateAccessToken() error {
-	now := time.Now()
-	cUTC := c.ExpiredAt.UTC()
-	nowUTC := now.UTC()
-	if nowUTC.After(cUTC) {
-		respBody, err := c.getAccessToken()
-		if err != nil {
-			return err
-		}
-		c.AccessToken = respBody.Data.AccessToken
-		c.ExpiredAt = respBody.Data.ExpiredAt
-	}
-	return nil
-}
-
-func (c APIClient) checkAndUpdateAccessTokenAndSave(filePath string) error {
-	err := c.checkAndUpdateAccessToken()
-	if err != nil {
-		return err
-	}
-	c.saveToFile(filePath)
-	return nil
-}
-
+// 将APIClient以json格式存储至文件
 func (c APIClient) saveToFile(filePath string) error {
 	headerStr, err := json.Marshal(c)
 	if err != nil {
