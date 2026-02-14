@@ -6,7 +6,7 @@ import (
 )
 
 type CreateFileBody struct {
-	ParentFileID int    `json:"parentFileId"`
+	ParentFileID int    `json:"parentFileID"`
 	FileName     string `json:"fileName"`
 	Etag         string `json:"etag"`
 	Size         int    `json:"size"`
@@ -15,8 +15,8 @@ type CreateFileBody struct {
 }
 
 type CreateFileData struct {
-	FileID      int      `json:"fileId"`
-	PreUploadID string   `json:"preuploadId"`
+	FileID      int      `json:"fileID"`
+	PreUploadID string   `json:"preuploadID"`
 	Reuse       bool     `json:"reuse"`
 	SliceSize   int      `json:"sliceSize"`
 	Servers     []string `json:"servers"`
@@ -26,7 +26,7 @@ type CreateFileResponse struct {
 	Data CreateFileData `json:"data"`
 }
 
-func (c APIClient) createFileWithConfig(createFileBody CreateFileBody, config Config) (CreateFileResponse, error) {
+func (c *APIClient) CreateFileWithConfig(createFileBody CreateFileBody, config Config) (CreateFileResponse, error) {
 	url := config.Domain + config.CreateFileAPI
 	data := "parentFileID=" + strconv.Itoa(createFileBody.ParentFileID) + "&filename=" + createFileBody.FileName + "&etag=" + createFileBody.Etag + "&size=" + strconv.Itoa(createFileBody.Size)
 	if createFileBody.Duplicate != 0 {
@@ -35,14 +35,17 @@ func (c APIClient) createFileWithConfig(createFileBody CreateFileBody, config Co
 	if createFileBody.ContainDir {
 		data += "&containDir=true"
 	}
-	body, _ := c.PostData(url, data)
+	body, err := c.PostData(url, data)
+	if err != nil {
+		return CreateFileResponse{}, err
+	}
 	createFileResponse := CreateFileResponse{}
-	err := json.Unmarshal(body, &createFileResponse)
+	err = json.Unmarshal(body, &createFileResponse)
 
 	return createFileResponse, err
 }
 
-func (c APIClient) createFile(createFileBody CreateFileBody) (CreateFileResponse, error) {
-	config := getDefaultConfig()
-	return c.createFileWithConfig(createFileBody, config)
+func (c *APIClient) CreateFile(createFileBody CreateFileBody) (CreateFileResponse, error) {
+	config := GetDefaultConfig()
+	return c.CreateFileWithConfig(createFileBody, config)
 }
