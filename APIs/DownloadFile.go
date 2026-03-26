@@ -19,7 +19,7 @@ type DownloadFileResponse struct {
 	Data DownloadFileData `json:"data"`
 }
 
-func (c *APIClient) DownloadFile(downloadFileBody DownloadFileBody) (DownloadFileResponse, error) {
+func DownloadFile(c *APIClient, downloadFileBody DownloadFileBody) (DownloadFileResponse, error) {
 	url := c.Config.Domain + c.Config.DownloadFileAPI + "?fileId=" + strconv.Itoa(downloadFileBody.FileID)
 
 	body, err := c.GetQuery(url)

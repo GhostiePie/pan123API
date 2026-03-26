@@ -1,7 +1,9 @@
-package APIs
+package Upload
 
 import (
 	"encoding/json"
+
+	"github.com/GhostiePie/pan123API/APIs"
 )
 
 type UploadCompleteBody struct {
@@ -14,11 +16,11 @@ type UploadCompleteData struct {
 }
 
 type UploadCompleteResponse struct {
-	Response
+	APIs.Response
 	Data UploadCompleteData `json:"data"`
 }
 
-func (c *APIClient) UploadComplete(uploadCompleteBody UploadCompleteBody) (UploadCompleteResponse, error) {
+func UploadComplete(c *APIs.APIClient, uploadCompleteBody UploadCompleteBody) (UploadCompleteResponse, error) {
 	url := c.Config.Domain + c.Config.UploadCompleteAPI
 	data := "preuploadID=" + uploadCompleteBody.PreuploadID
 

@@ -37,7 +37,7 @@ type GetPaidShareLinkListResponse struct {
 	Data GetPaidShareLinkListData `json:"data"`
 }
 
-func (c *APIClient) GetPaidShareLinkList(getPaidShareLinkListBody GetPaidShareLinkListBody, config APIConfig) (GetPaidShareLinkListResponse, error) {
+func GetPaidShareLinkList(c *APIClient, getPaidShareLinkListBody GetPaidShareLinkListBody, config APIConfig) (GetPaidShareLinkListResponse, error) {
 	url := config.Domain + config.GetPaidShareLinkListAPI +
 		"?limit=" + strconv.Itoa(getPaidShareLinkListBody.Limit)
 	if getPaidShareLinkListBody.LastShareId != 0 {

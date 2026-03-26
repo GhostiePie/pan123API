@@ -17,7 +17,7 @@ type OneFileRenameResponse struct {
 	Data *OneFileRenameData `json:"data"`
 }
 
-func (c *APIClient) OneFileRename(oneFileRenameBody OneFileRenameBody) (OneFileRenameResponse, error) {
+func OneFileRename(c *APIClient, oneFileRenameBody OneFileRenameBody) (OneFileRenameResponse, error) {
 	url := c.Config.Domain + c.Config.OneFileRenameAPI + "?fileId=" + strconv.Itoa(oneFileRenameBody.FileId) + "&fileName=" + oneFileRenameBody.FileName
 
 	body, err := c.PutQuery(url)

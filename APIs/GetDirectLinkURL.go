@@ -16,7 +16,7 @@ type GetDirectLinkURLResponse struct {
 	Data GetDirectLinkURLData `json:"data"`
 }
 
-func (c *APIClient) GetDirectLinkURL(getDirectLinkURLBody GetDirectLinkURLBody, config APIConfig) (GetDirectLinkURLResponse, error) {
+func GetDirectLinkURL(c *APIClient, getDirectLinkURLBody GetDirectLinkURLBody, config APIConfig) (GetDirectLinkURLResponse, error) {
 	url := c.Config.Domain + c.Config.GetDirectLinkURLAPI + "?fileID=" + strconv.Itoa(getDirectLinkURLBody.FileID)
 
 	body, err := c.GetQuery(url)

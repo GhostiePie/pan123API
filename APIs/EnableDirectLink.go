@@ -15,7 +15,7 @@ type EnableDirectLinkResponse struct {
 	Data EnableDirectLinkData `json:"data"`
 }
 
-func (c *APIClient) EnableDirectLink(enableDirectLinkBody EnableDirectLinkBody, config APIConfig) (EnableDirectLinkResponse, error) {
+func EnableDirectLink(c *APIClient, enableDirectLinkBody EnableDirectLinkBody, config APIConfig) (EnableDirectLinkResponse, error) {
 	url := c.Config.Domain + c.Config.EnableDirectLinkAPI
 
 	jsonData, err := json.Marshal(enableDirectLinkBody)

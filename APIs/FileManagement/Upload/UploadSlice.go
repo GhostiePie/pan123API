@@ -1,4 +1,4 @@
-package APIs
+package Upload
 
 import (
 	"bytes"
@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"mime/multipart"
 	"strconv"
+
+	"github.com/GhostiePie/pan123API/APIs"
 )
 
 type UploadSliceBody struct {
@@ -18,10 +20,10 @@ type UploadSliceBody struct {
 }
 
 type UploadSliceResponse struct {
-	Response
+	APIs.Response
 }
 
-func (c *APIClient) UploadSlice(uploadSliceBody UploadSliceBody) (UploadSliceResponse, error) {
+func UploadSlice(c *APIs.APIClient, uploadSliceBody UploadSliceBody) (UploadSliceResponse, error) {
 
 	url := uploadSliceBody.Servers[0] + c.Config.UploadSliceAPI
 	body := &bytes.Buffer{}

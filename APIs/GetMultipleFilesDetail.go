@@ -31,7 +31,7 @@ type GetMultipleFilesDetailResponse struct {
 	Data GetMultipleFilesDetailData `json:"data"`
 }
 
-func (c *APIClient) GetMultipleFilesDetail(getMultipleFilesDetailBody GetMultipleFilesDetailBody, config APIConfig) (GetMultipleFilesDetailResponse, error) {
+func GetMultipleFilesDetail(c *APIClient, getMultipleFilesDetailBody GetMultipleFilesDetailBody, config APIConfig) (GetMultipleFilesDetailResponse, error) {
 	url := config.Domain + config.GetMultipleFilesDetailAPI
 
 	jsonData, err := json.Marshal(getMultipleFilesDetailBody)

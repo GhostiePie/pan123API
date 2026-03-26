@@ -24,7 +24,7 @@ type CreateShareLinkResponse struct {
 	Data CreateShareLinkData `json:"data"`
 }
 
-func (c *APIClient) CreateShareLink(createShareLinkBody CreateShareLinkBody) (CreateShareLinkResponse, error) {
+func CreateShareLink(c *APIClient, createShareLinkBody CreateShareLinkBody) (CreateShareLinkResponse, error) {
 	url := c.Config.Domain + c.Config.CreateShareLinkAPI
 
 	jsonData, err := json.Marshal(createShareLinkBody)

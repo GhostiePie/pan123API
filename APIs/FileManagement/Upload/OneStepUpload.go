@@ -1,4 +1,4 @@
-package APIs
+package Upload
 
 import (
 	"bytes"
@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"mime/multipart"
 	"strconv"
+
+	"github.com/GhostiePie/pan123API/APIs"
 )
 
 type OneStepUploadBody struct {
@@ -24,11 +26,11 @@ type OneStepUploadData struct {
 	Completed bool `json:"completed"`
 }
 type OneStepUploadResponse struct {
-	Response
+	APIs.Response
 	Data OneStepUploadData `json:"data"`
 }
 
-func (c *APIClient) OneStepUpload(oneStepUploadBody OneStepUploadBody) (OneStepUploadResponse, error) {
+func OneStepUpload(c *APIs.APIClient, oneStepUploadBody OneStepUploadBody) (OneStepUploadResponse, error) {
 	url := c.Config.Domain + c.Config.OneStepUploadAPI
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)

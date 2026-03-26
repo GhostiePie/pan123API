@@ -20,7 +20,7 @@ type CreateOfflineDownloadMissionResponse struct {
 	Data CreateOfflineDownloadMissionData `json:"data"`
 }
 
-func (c *APIClient) CreateOfflineDownloadMission(createOfflineDownloadMissionBody CreateOfflineDownloadMissionBody) (CreateOfflineDownloadMissionResponse, error) {
+func CreateOfflineDownloadMission(c *APIClient, createOfflineDownloadMissionBody CreateOfflineDownloadMissionBody) (CreateOfflineDownloadMissionResponse, error) {
 	url := c.Config.Domain + c.Config.CreateOfflineDownloadMissionAPI
 
 	jsonData, err := json.Marshal(createOfflineDownloadMissionBody)

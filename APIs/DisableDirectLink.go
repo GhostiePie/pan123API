@@ -15,7 +15,7 @@ type DisableDirectLinkResponse struct {
 	Data DisableDirectLinkData `json:"data"`
 }
 
-func (c *APIClient) DisableDirectLink(disableDirectLinkBody DisableDirectLinkBody, config APIConfig) (DisableDirectLinkResponse, error) {
+func DisableDirectLink(c *APIClient, disableDirectLinkBody DisableDirectLinkBody, config APIConfig) (DisableDirectLinkResponse, error) {
 	url := c.Config.Domain + c.Config.DisableDirectLinkAPI
 
 	jsonData, err := json.Marshal(disableDirectLinkBody)

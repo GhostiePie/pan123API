@@ -11,7 +11,7 @@ type DirectLinkCacheRefreshResponse struct {
 	Data DirectLinkCacheRefreshData `json:"data"`
 }
 
-func (c *APIClient) DirectLinkCacheRefresh(directLinkCacheRefreshBody DirectLinkCacheRefreshBody, config APIConfig) (DirectLinkCacheRefreshResponse, error) {
+func DirectLinkCacheRefresh(c *APIClient, directLinkCacheRefreshBody DirectLinkCacheRefreshBody, config APIConfig) (DirectLinkCacheRefreshResponse, error) {
 	url := c.Config.Domain + c.Config.DirectLinkCacheRefreshAPI
 
 	body, err := c.PostQuery(url)

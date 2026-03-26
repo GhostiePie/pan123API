@@ -28,7 +28,7 @@ type GetDirectLinkOfflineLogsResponse struct {
 	Data GetDirectLinkOfflineLogsData `json:"data"`
 }
 
-func (c *APIClient) GetDirectLinkOfflineLogs(getDirectLinkOfflineLogsBody GetDirectLinkOfflineLogsBody, config APIConfig) (GetDirectLinkOfflineLogsResponse, error) {
+func GetDirectLinkOfflineLogs(c *APIClient, getDirectLinkOfflineLogsBody GetDirectLinkOfflineLogsBody, config APIConfig) (GetDirectLinkOfflineLogsResponse, error) {
 	url := c.Config.Domain + c.Config.GetDirectLinkOfflineLogsAPI + "?startHour=" + url.QueryEscape(getDirectLinkOfflineLogsBody.StartHour) + "&endHour=" + url.QueryEscape(getDirectLinkOfflineLogsBody.EndHour) + "&pageNum=" + strconv.Itoa(getDirectLinkOfflineLogsBody.PageNum) + "&pageSize=" + strconv.Itoa(getDirectLinkOfflineLogsBody.PageSize)
 
 	body, err := c.GetQuery(url)

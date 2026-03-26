@@ -15,7 +15,7 @@ type UpdateIPBlacklistListResponse struct {
 	Data *UpdateIPBlacklistListData `json:"data"`
 }
 
-func (c *APIClient) UpdateIPBlacklistList(updateIPBlacklistListBody UpdateIPBlacklistListBody) (UpdateIPBlacklistListResponse, error) {
+func UpdateIPBlacklistList(c *APIClient, updateIPBlacklistListBody UpdateIPBlacklistListBody) (UpdateIPBlacklistListResponse, error) {
 	url := c.Config.Domain + c.Config.UpdateIPBlacklistListAPI
 
 	jsonData, err := json.Marshal(updateIPBlacklistListBody)

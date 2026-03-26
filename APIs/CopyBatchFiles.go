@@ -18,7 +18,7 @@ type CopyBatchFilesResponse struct {
 	Data CopyBatchFilesData `json:"data"`
 }
 
-func (c *APIClient) CopyBatchFiles(copyBatchFilesBody CopyBatchFilesBody) (CopyBatchFilesResponse, error) {
+func CopyBatchFiles(c *APIClient, copyBatchFilesBody CopyBatchFilesBody) (CopyBatchFilesResponse, error) {
 	url := c.Config.Domain + c.Config.CopyBatchFilesAPI
 
 	jsonData, err := json.Marshal(copyBatchFilesBody)

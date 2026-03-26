@@ -17,7 +17,7 @@ type RecoverFileFromTrashResponse struct {
 	Data RecoverFileFromTrashData `json:"data"`
 }
 
-func (c *APIClient) RecoverFileFromTrash(recoverFileFromTrashBody RecoverFileFromTrashBody) (RecoverFileFromTrashResponse, error) {
+func RecoverFileFromTrash(c *APIClient, recoverFileFromTrashBody RecoverFileFromTrashBody) (RecoverFileFromTrashResponse, error) {
 	url := c.Config.Domain + c.Config.RecoverFileFromTrashAPI
 
 	jsonData, err := json.Marshal(recoverFileFromTrashBody)

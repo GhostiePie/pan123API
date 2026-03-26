@@ -19,7 +19,7 @@ type GetAccessTokenBody struct {
 	ClientSecret string `json:"clientSecret"`
 }
 
-func (c *APIClient) getAccessToken(getAccessTokenBody GetAccessTokenBody) (GetAccessTokenResponse, error) {
+func GetAccessToken(c *APIClient, getAccessTokenBody GetAccessTokenBody) (GetAccessTokenResponse, error) {
 	url := c.Config.Domain + c.Config.AccessTokenAPI
 	data, err := json.Marshal(getAccessTokenBody)
 	if err != nil {

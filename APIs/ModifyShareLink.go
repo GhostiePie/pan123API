@@ -16,7 +16,7 @@ type ModifyShareLinkResponse struct {
 	Data *ModifyShareLinkData `json:"data"`
 }
 
-func (c *APIClient) ModifyShareLink(modifyShareLinkBody ModifyShareLinkBody) (ModifyShareLinkResponse, error) {
+func ModifyShareLink(c *APIClient, modifyShareLinkBody ModifyShareLinkBody) (ModifyShareLinkResponse, error) {
 	url := c.Config.Domain + c.Config.ModifyShareLinkAPI
 
 	jsonData, err := json.Marshal(modifyShareLinkBody)

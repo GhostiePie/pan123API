@@ -37,7 +37,7 @@ type GetFileListResponse struct {
 	Data GetFileListData `json:"data"`
 }
 
-func (c *APIClient) GetFileList(getFileListBody GetFileListBody, config APIConfig) (GetFileListResponse, error) {
+func GetFileList(c *APIClient, getFileListBody GetFileListBody) (GetFileListResponse, error) {
 	url := c.Config.Domain + c.Config.GetFileListAPI +
 		"?parentFileId=" + strconv.Itoa(getFileListBody.ParentFileId) +
 		"&limit=" + strconv.Itoa(getFileListBody.Limit)

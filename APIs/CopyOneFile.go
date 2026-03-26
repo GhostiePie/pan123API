@@ -19,7 +19,7 @@ type CopyOneFileResponse struct {
 	Data CopyOneFileData `json:"data"`
 }
 
-func (c *APIClient) CopyOneFile(copyOneFileBody CopyOneFileBody) (CopyOneFileResponse, error) {
+func CopyOneFile(c *APIClient, copyOneFileBody CopyOneFileBody) (CopyOneFileResponse, error) {
 	url := c.Config.Domain + c.Config.CopyOneFileAPI
 
 	jsonData, err := json.Marshal(copyOneFileBody)

@@ -15,7 +15,7 @@ type DeleteFileToTrashResponse struct {
 	Data *DeleteFileToTrashData `json:"data"`
 }
 
-func (c *APIClient) DeleteFileToTrash(deleteFileToTrashBody DeleteFileToTrashBody) (DeleteFileToTrashResponse, error) {
+func DeleteFileToTrash(c *APIClient, deleteFileToTrashBody DeleteFileToTrashBody) (DeleteFileToTrashResponse, error) {
 	url := c.Config.Domain + c.Config.DeleteFileToTrashAPI
 
 	jsonData, err := json.Marshal(deleteFileToTrashBody)

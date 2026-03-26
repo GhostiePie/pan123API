@@ -14,7 +14,7 @@ type MoveFilesResponse struct {
 	Data *MoveFilesData `json:"data"`
 }
 
-func (c *APIClient) MoveFiles(moveFilesBody MoveFilesBody) (MoveFilesResponse, error) {
+func MoveFiles(c *APIClient, moveFilesBody MoveFilesBody) (MoveFilesResponse, error) {
 	url := c.Config.Domain + c.Config.MoveFilesAPI
 
 	jsonData, err := json.Marshal(moveFilesBody)

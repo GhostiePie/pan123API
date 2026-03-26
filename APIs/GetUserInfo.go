@@ -36,3 +36,17 @@ type GetUserInfoResponse struct {
 	Response
 	Data GetUserInfoData `json:"data"`
 }
+
+func GetUserInfo(c *APIClient) (GetUserInfoResponse, error) {
+	url := c.Config.Domain + c.Config.GetUserInfoAPI
+	resp, err := c.GetQuery(url)
+	if err != nil {
+		return GetUserInfoResponse{}, err
+	}
+	getUserInfoResponse := GetUserInfoResponse{}
+	err = json.Unmarshal(resp, &getUserInfoResponse)
+	if err != nil {
+		return GetUserInfoResponse{}, err
+	}
+	return getUserInfoResponse, nil
+}

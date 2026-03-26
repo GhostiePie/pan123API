@@ -17,7 +17,7 @@ type GetOfflineDownloadProgressResponse struct {
 	Data GetOfflineDownloadProgressData `json:"data"`
 }
 
-func (c *APIClient) GetOfflineDownloadProgress(getOfflineDownloadProgressBody GetOfflineDownloadProgressBody, config APIConfig) (GetOfflineDownloadProgressResponse, error) {
+func GetOfflineDownloadProgress(c *APIClient, getOfflineDownloadProgressBody GetOfflineDownloadProgressBody, config APIConfig) (GetOfflineDownloadProgressResponse, error) {
 	url := config.Domain + config.GetOfflineDownloadProgressAPI + "?taskID=" + strconv.Itoa(getOfflineDownloadProgressBody.TaskID)
 
 	body, err := c.GetQuery(url)

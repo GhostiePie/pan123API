@@ -16,7 +16,7 @@ type RecoverFileByPathResponse struct {
 	Data *RecoverFileByPathData `json:"data"`
 }
 
-func (c *APIClient) RecoverFileByPath(recoverFileByPathBody RecoverFileByPathBody) (RecoverFileByPathResponse, error) {
+func RecoverFileByPath(c *APIClient, recoverFileByPathBody RecoverFileByPathBody) (RecoverFileByPathResponse, error) {
 	url := c.Config.Domain + c.Config.RecoverFileByPathAPI
 
 	jsonData, err := json.Marshal(recoverFileByPathBody)

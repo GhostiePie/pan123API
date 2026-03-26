@@ -33,7 +33,7 @@ type GetShareLinkListResponse struct {
 	Data GetShareLinkListData `json:"data"`
 }
 
-func (c *APIClient) GetShareLinkList(getShareLinkListBody GetShareLinkListBody, config APIConfig) (GetShareLinkListResponse, error) {
+func GetShareLinkList(c *APIClient, getShareLinkListBody GetShareLinkListBody, config APIConfig) (GetShareLinkListResponse, error) {
 	url := config.Domain + config.GetShareLinkListAPI +
 		"?limit=" + strconv.Itoa(getShareLinkListBody.Limit)
 	if getShareLinkListBody.LastShareId != 0 {

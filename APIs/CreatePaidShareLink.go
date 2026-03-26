@@ -25,7 +25,7 @@ type CreatePaidShareLinkResponse struct {
 	Data CreatePaidShareLinkData `json:"data"`
 }
 
-func (c *APIClient) CreatePaidShareLink(createPaidShareLinkBody CreatePaidShareLinkBody) (CreatePaidShareLinkResponse, error) {
+func CreatePaidShareLink(c *APIClient, createPaidShareLinkBody CreatePaidShareLinkBody) (CreatePaidShareLinkResponse, error) {
 	url := c.Config.Domain + c.Config.CreatePaidShareLinkAPI
 
 	jsonData, err := json.Marshal(createPaidShareLinkBody)

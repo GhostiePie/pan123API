@@ -1,7 +1,9 @@
-package APIs
+package Upload
 
 import (
 	"encoding/json"
+
+	"github.com/GhostiePie/pan123API/APIs"
 )
 
 type CreateFileBody struct {
@@ -21,11 +23,11 @@ type CreateFileData struct {
 	Servers     []string `json:"servers"`
 }
 type CreateFileResponse struct {
-	Response
+	APIs.Response
 	Data CreateFileData `json:"data"`
 }
 
-func (c *APIClient) CreateFile(createFileBody CreateFileBody) (CreateFileResponse, error) {
+func CreateFile(c *APIs.APIClient, createFileBody CreateFileBody) (CreateFileResponse, error) {
 	url := c.Config.Domain + c.Config.CreateFileAPI
 	data, err := json.Marshal(createFileBody)
 	if err != nil {

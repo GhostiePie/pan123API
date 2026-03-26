@@ -17,7 +17,7 @@ type CreateDirectoryResponse struct {
 	Data CreateDirectoryData `json:"data"`
 }
 
-func (c *APIClient) CreateDirectory(createDirectoryBody CreateDirectoryBody) (CreateDirectoryResponse, error) {
+func CreateDirectory(c *APIClient, createDirectoryBody CreateDirectoryBody) (CreateDirectoryResponse, error) {
 	url := c.Config.Domain + c.Config.CreateDirectoryAPI
 	data, err := json.Marshal(createDirectoryBody)
 	if err != nil {

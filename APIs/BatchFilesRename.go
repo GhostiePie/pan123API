@@ -33,7 +33,7 @@ type BatchFilesRenameResponse struct {
 	Data BatchFilesRenameData `json:"data"`
 }
 
-func (c *APIClient) BatchFilesRename(batchFilesRenameBody BatchFilesRenameBody) (BatchFilesRenameResponse, error) {
+func BatchFilesRename(c *APIClient, batchFilesRenameBody BatchFilesRenameBody) (BatchFilesRenameResponse, error) {
 	url := c.Config.Domain + c.Config.BatchFilesRenameAPI
 
 	jsonData, err := json.Marshal(batchFilesRenameBody)

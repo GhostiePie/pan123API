@@ -26,7 +26,7 @@ type GetOneFileDetailResponse struct {
 	Data GetOneFileDetailData `json:"data"`
 }
 
-func (c *APIClient) GetOneFileDetail(getOneFileDetailBody GetOneFileDetailBody) (GetOneFileDetailResponse, error) {
+func GetOneFileDetail(c *APIClient, getOneFileDetailBody GetOneFileDetailBody) (GetOneFileDetailResponse, error) {
 	url := c.Config.Domain + c.Config.GetOneFileDetailAPI + "?fileID=" + strconv.Itoa(getOneFileDetailBody.FileID)
 
 	body, err := c.GetQuery(url)

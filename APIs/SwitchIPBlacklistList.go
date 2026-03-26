@@ -17,7 +17,7 @@ type SwitchIPBlacklistListResponse struct {
 	Data SwitchIPBlacklistListData `json:"data"`
 }
 
-func (c *APIClient) SwitchIPBlacklistList(switchIPBlacklistListBody SwitchIPBlacklistListBody) (SwitchIPBlacklistListResponse, error) {
+func SwitchIPBlacklistList(c *APIClient, switchIPBlacklistListBody SwitchIPBlacklistListBody) (SwitchIPBlacklistListResponse, error) {
 	url := c.Config.Domain + c.Config.SwitchIPBlacklistListAPI
 
 	jsonData, err := json.Marshal(switchIPBlacklistListBody)

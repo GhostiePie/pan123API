@@ -30,7 +30,7 @@ type GetDirectLinkTrafficLogsResponse struct {
 	Data GetDirectLinkTrafficLogsData `json:"data"`
 }
 
-func (c *APIClient) GetDirectLinkTrafficLogs(getDirectLinkTrafficLogsBody GetDirectLinkTrafficLogsBody, config APIConfig) (GetDirectLinkTrafficLogsResponse, error) {
+func GetDirectLinkTrafficLogs(c *APIClient, getDirectLinkTrafficLogsBody GetDirectLinkTrafficLogsBody, config APIConfig) (GetDirectLinkTrafficLogsResponse, error) {
 	url := c.Config.Domain + c.Config.GetDirectLinkTrafficLogsAPI + "?pageNum=" + strconv.Itoa(getDirectLinkTrafficLogsBody.PageNum) + "&pageSize=" + strconv.Itoa(getDirectLinkTrafficLogsBody.PageSize) + "&startTime=" + url.QueryEscape(getDirectLinkTrafficLogsBody.StartTime) + "&endTime=" + url.QueryEscape(getDirectLinkTrafficLogsBody.EndTime)
 
 	body, err := c.GetQuery(url)

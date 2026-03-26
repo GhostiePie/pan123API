@@ -19,7 +19,7 @@ type CopyBatchFilesProgressResponse struct {
 	Data CopyBatchFilesProgressData `json:"data"`
 }
 
-func (c *APIClient) CopyBatchFilesProgress(copyBatchFilesProgressBody CopyBatchFilesProgressBody) (CopyBatchFilesProgressResponse, error) {
+func CopyBatchFilesProgress(c *APIClient, copyBatchFilesProgressBody CopyBatchFilesProgressBody) (CopyBatchFilesProgressResponse, error) {
 	url := c.Config.Domain + c.Config.CopyBatchFilesProgressAPI + "?taskId=" + strconv.Itoa(copyBatchFilesProgressBody.TaskId)
 
 	body, err := c.GetQuery(url)
