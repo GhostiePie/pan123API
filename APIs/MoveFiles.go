@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -22,7 +23,7 @@ func MoveFiles(c *APIClient, moveFilesBody MoveFilesBody) (MoveFilesResponse, er
 		return MoveFilesResponse{}, err
 	}
 
-	body, err := c.PostData(url, string(jsonData))
+	body, err := c.PostData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return MoveFilesResponse{}, err
 	}

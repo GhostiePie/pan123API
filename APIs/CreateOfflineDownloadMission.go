@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -28,7 +29,7 @@ func CreateOfflineDownloadMission(c *APIClient, createOfflineDownloadMissionBody
 		return CreateOfflineDownloadMissionResponse{}, err
 	}
 
-	body, err := c.PostData(url, string(jsonData))
+	body, err := c.PostData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return CreateOfflineDownloadMissionResponse{}, err
 	}

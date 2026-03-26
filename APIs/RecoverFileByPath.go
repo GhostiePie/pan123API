@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -24,7 +25,7 @@ func RecoverFileByPath(c *APIClient, recoverFileByPathBody RecoverFileByPathBody
 		return RecoverFileByPathResponse{}, err
 	}
 
-	body, err := c.PostData(url, string(jsonData))
+	body, err := c.PostData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return RecoverFileByPathResponse{}, err
 	}

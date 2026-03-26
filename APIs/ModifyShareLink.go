@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -24,7 +25,7 @@ func ModifyShareLink(c *APIClient, modifyShareLinkBody ModifyShareLinkBody) (Mod
 		return ModifyShareLinkResponse{}, err
 	}
 
-	body, err := c.PutData(url, string(jsonData))
+	body, err := c.PutData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return ModifyShareLinkResponse{}, err
 	}

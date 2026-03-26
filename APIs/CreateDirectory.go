@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -23,7 +24,7 @@ func CreateDirectory(c *APIClient, createDirectoryBody CreateDirectoryBody) (Cre
 	if err != nil {
 		return CreateDirectoryResponse{}, err
 	}
-	body, err := c.PostData(url, string(data))
+	body, err := c.PostData(url, bytes.NewReader(data))
 	if err != nil {
 		return CreateDirectoryResponse{}, err
 	}

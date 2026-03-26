@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -23,7 +24,7 @@ func DeleteFileToTrash(c *APIClient, deleteFileToTrashBody DeleteFileToTrashBody
 		return DeleteFileToTrashResponse{}, err
 	}
 
-	body, err := c.PostData(url, string(jsonData))
+	body, err := c.PostData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return DeleteFileToTrashResponse{}, err
 	}

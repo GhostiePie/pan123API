@@ -2,6 +2,7 @@ package Upload
 
 import (
 	"encoding/json"
+	"strings"
 
 	"github.com/GhostiePie/pan123API/APIs"
 )
@@ -24,7 +25,7 @@ func UploadComplete(c *APIs.APIClient, uploadCompleteBody UploadCompleteBody) (U
 	url := c.Config.Domain + c.Config.UploadCompleteAPI
 	data := "preuploadID=" + uploadCompleteBody.PreuploadID
 
-	body, err := c.PostData(url, data)
+	body, err := c.PostData(url, strings.NewReader(data))
 	if err != nil {
 		return UploadCompleteResponse{}, err
 	}

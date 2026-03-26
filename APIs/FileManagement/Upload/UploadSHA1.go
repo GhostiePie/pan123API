@@ -3,6 +3,7 @@ package Upload
 import (
 	"encoding/json"
 	"strconv"
+	"strings"
 
 	"github.com/GhostiePie/pan123API/APIs"
 )
@@ -34,7 +35,7 @@ func UploadSHA1(c *APIs.APIClient, uploadSHA1Body UploadSHA1Body) (UploadSHA1Res
 		data += "&duplicate=" + strconv.Itoa(uploadSHA1Body.Duplicate)
 	}
 
-	body, err := c.PostData(url, data)
+	body, err := c.PostData(url, strings.NewReader(data))
 	if err != nil {
 		return UploadSHA1Response{}, err
 	}

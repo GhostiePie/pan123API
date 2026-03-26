@@ -1,6 +1,7 @@
 package Upload
 
 import (
+	"bytes"
 	"encoding/json"
 
 	"github.com/GhostiePie/pan123API/APIs"
@@ -33,7 +34,7 @@ func CreateFile(c *APIs.APIClient, createFileBody CreateFileBody) (CreateFileRes
 	if err != nil {
 		return CreateFileResponse{}, err
 	}
-	body, err := c.PostData(url, string(data))
+	body, err := c.PostData(url, bytes.NewReader(data))
 	if err != nil {
 		return CreateFileResponse{}, err
 	}

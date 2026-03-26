@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -27,7 +28,7 @@ func CopyOneFile(c *APIClient, copyOneFileBody CopyOneFileBody) (CopyOneFileResp
 		return CopyOneFileResponse{}, err
 	}
 
-	body, err := c.PostData(url, string(jsonData))
+	body, err := c.PostData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return CopyOneFileResponse{}, err
 	}

@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -26,7 +27,7 @@ func CopyBatchFiles(c *APIClient, copyBatchFilesBody CopyBatchFilesBody) (CopyBa
 		return CopyBatchFilesResponse{}, err
 	}
 
-	body, err := c.PostData(url, string(jsonData))
+	body, err := c.PostData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return CopyBatchFilesResponse{}, err
 	}
