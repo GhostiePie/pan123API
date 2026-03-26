@@ -25,7 +25,7 @@ func GetAccessToken(c *APIClient, getAccessTokenBody GetAccessTokenBody) (GetAcc
 	if err != nil {
 		return GetAccessTokenResponse{}, err
 	}
-	body, err := c.PostData(url, string(data))
+	body, err := c.PostData(url, data)
 	if err != nil {
 		return GetAccessTokenResponse{}, err
 	}

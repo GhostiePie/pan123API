@@ -129,8 +129,8 @@ func (c *APIClient) Post(url string, contentType string, body io.Reader) ([]byte
 	return respBody, err
 }
 
-func (c *APIClient) PostData(url string, data string) ([]byte, error) {
-	return c.Post(url, "application/json", strings.NewReader(data))
+func (c *APIClient) PostData(url string, data *io.Reader) ([]byte, error) {
+	return c.Post(url, "application/json", *data)
 }
 
 func (c *APIClient) PostQuery(url string) ([]byte, error) {
