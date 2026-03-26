@@ -23,7 +23,7 @@ func EnableDirectLink(c *APIClient, enableDirectLinkBody EnableDirectLinkBody, c
 		return EnableDirectLinkResponse{}, err
 	}
 
-	body, err := c.PostData(url, string(jsonData))
+	body, err := c.PostData(url, jsonData)
 	if err != nil {
 		return EnableDirectLinkResponse{}, err
 	}
