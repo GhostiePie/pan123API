@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -23,7 +24,7 @@ func DisableDirectLink(c *APIClient, disableDirectLinkBody DisableDirectLinkBody
 		return DisableDirectLinkResponse{}, err
 	}
 
-	body, err := c.PostData(url, string(jsonData))
+	body, err := c.PostData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return DisableDirectLinkResponse{}, err
 	}

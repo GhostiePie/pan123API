@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 )
 
@@ -23,7 +24,7 @@ func EnableDirectLink(c *APIClient, enableDirectLinkBody EnableDirectLinkBody, c
 		return EnableDirectLinkResponse{}, err
 	}
 
-	body, err := c.PostData(url, jsonData)
+	body, err := c.PostData(url, bytes.NewReader(jsonData))
 	if err != nil {
 		return EnableDirectLinkResponse{}, err
 	}

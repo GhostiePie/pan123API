@@ -1,6 +1,7 @@
 package APIs
 
 import (
+	"bytes"
 	"encoding/json"
 	"time"
 )
@@ -25,7 +26,7 @@ func GetAccessToken(c *APIClient, getAccessTokenBody GetAccessTokenBody) (GetAcc
 	if err != nil {
 		return GetAccessTokenResponse{}, err
 	}
-	body, err := c.PostData(url, data)
+	body, err := c.PostData(url, bytes.NewReader(data))
 	if err != nil {
 		return GetAccessTokenResponse{}, err
 	}
