@@ -8,7 +8,7 @@ import (
 	"mime/multipart"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/APIs"
+	"github.com/GhostiePie/pan123API/ClientAndMethods"
 )
 
 type UploadSliceBody struct {
@@ -20,10 +20,10 @@ type UploadSliceBody struct {
 }
 
 type UploadSliceResponse struct {
-	APIs.Response
+	ClientAndMethods.Response
 }
 
-func UploadSlice(c *APIs.APIClient, uploadSliceBody UploadSliceBody) (UploadSliceResponse, error) {
+func UploadSlice(c *ClientAndMethods.APIClient, uploadSliceBody UploadSliceBody) (UploadSliceResponse, error) {
 
 	url := uploadSliceBody.Servers[0] + c.Config.UploadSliceAPI
 	body := &bytes.Buffer{}

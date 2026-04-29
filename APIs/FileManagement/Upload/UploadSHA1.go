@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/GhostiePie/pan123API/APIs"
+	"github.com/GhostiePie/pan123API/ClientAndMethods"
 )
 
 type UploadSHA1Body struct {
@@ -21,11 +21,11 @@ type UploadSHA1Data struct {
 	Reuse  bool `json:"reuse"`
 }
 type UploadSHA1Response struct {
-	APIs.Response
+	ClientAndMethods.Response
 	Data UploadSHA1Data `json:"data"`
 }
 
-func UploadSHA1(c *APIs.APIClient, uploadSHA1Body UploadSHA1Body) (UploadSHA1Response, error) {
+func UploadSHA1(c *ClientAndMethods.APIClient, uploadSHA1Body UploadSHA1Body) (UploadSHA1Response, error) {
 	url := c.Config.Domain + c.Config.UploadSHA1API
 	data := "parentFileID=" + strconv.Itoa(uploadSHA1Body.ParentFileID) +
 		"&filename=" + uploadSHA1Body.FileName +
