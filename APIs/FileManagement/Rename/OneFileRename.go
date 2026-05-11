@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type OneFileRenameBody struct {
@@ -15,11 +15,11 @@ type OneFileRenameBody struct {
 type OneFileRenameData struct{}
 
 type OneFileRenameResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data *OneFileRenameData `json:"data"`
 }
 
-func OneFileRename(c *ClientAndMethods.APIClient, oneFileRenameBody OneFileRenameBody) (OneFileRenameResponse, error) {
+func OneFileRename(c *Client.APIClient, oneFileRenameBody OneFileRenameBody) (OneFileRenameResponse, error) {
 	url := c.Config.Domain + c.Config.OneFileRenameAPI + "?fileId=" + strconv.Itoa(oneFileRenameBody.FileId) + "&fileName=" + oneFileRenameBody.FileName
 
 	body, err := c.PutQuery(url)

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetFileListBody struct {
@@ -35,11 +35,11 @@ type GetFileListData struct {
 	FileList   []FileListItem `json:"fileList"`
 }
 type GetFileListResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetFileListData `json:"data"`
 }
 
-func GetFileList(c *ClientAndMethods.APIClient, getFileListBody GetFileListBody) (GetFileListResponse, error) {
+func GetFileList(c *Client.APIClient, getFileListBody GetFileListBody) (GetFileListResponse, error) {
 	url := c.Config.Domain + c.Config.GetFileListAPI +
 		"?parentFileId=" + strconv.Itoa(getFileListBody.ParentFileId) +
 		"&limit=" + strconv.Itoa(getFileListBody.Limit)

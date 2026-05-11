@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type CopyOneFileBody struct {
@@ -18,11 +18,11 @@ type CopyOneFileData struct {
 }
 
 type CopyOneFileResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data CopyOneFileData `json:"data"`
 }
 
-func CopyOneFile(c *ClientAndMethods.APIClient, copyOneFileBody CopyOneFileBody) (CopyOneFileResponse, error) {
+func CopyOneFile(c *Client.APIClient, copyOneFileBody CopyOneFileBody) (CopyOneFileResponse, error) {
 	url := c.Config.Domain + c.Config.CopyOneFileAPI
 
 	jsonData, err := json.Marshal(copyOneFileBody)

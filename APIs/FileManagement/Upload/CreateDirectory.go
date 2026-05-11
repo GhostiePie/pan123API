@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type CreateDirectoryBody struct {
@@ -16,11 +16,11 @@ type CreateDirectoryData struct {
 	DirID int `json:"dirID"`
 }
 type CreateDirectoryResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data CreateDirectoryData `json:"data"`
 }
 
-func CreateDirectory(c *ClientAndMethods.APIClient, createDirectoryBody CreateDirectoryBody) (CreateDirectoryResponse, error) {
+func CreateDirectory(c *Client.APIClient, createDirectoryBody CreateDirectoryBody) (CreateDirectoryResponse, error) {
 	url := c.Config.Domain + c.Config.CreateDirectoryAPI
 	data, err := json.Marshal(createDirectoryBody)
 	if err != nil {

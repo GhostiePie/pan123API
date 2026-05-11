@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type DeleteFileToTrashBody struct {
@@ -14,11 +14,11 @@ type DeleteFileToTrashBody struct {
 type DeleteFileToTrashData struct{}
 
 type DeleteFileToTrashResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data *DeleteFileToTrashData `json:"data"`
 }
 
-func DeleteFileToTrash(c *ClientAndMethods.APIClient, deleteFileToTrashBody DeleteFileToTrashBody) (DeleteFileToTrashResponse, error) {
+func DeleteFileToTrash(c *Client.APIClient, deleteFileToTrashBody DeleteFileToTrashBody) (DeleteFileToTrashResponse, error) {
 	url := c.Config.Domain + c.Config.DeleteFileToTrashAPI
 
 	jsonData, err := json.Marshal(deleteFileToTrashBody)

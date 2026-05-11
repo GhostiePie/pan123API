@@ -1,6 +1,7 @@
 package Utils
 
 import (
+	"crypto/md5"
 	"fmt"
 	"io"
 	"math"
@@ -80,4 +81,16 @@ func GetFileChunk(fileName string, start int, end int) ([]byte, error) {
 	}
 	defer file.Close()
 	return ReadChunk(file, start, end)
+}
+
+func CalcFileMD5(file *os.File) string {
+	hash := md5.New()
+
+	if _, err := io.Copy(hash, file); err != nil {
+		fmt.Println("Error reading file:", err)
+		return "error."
+	}
+
+	md5Sum := hash.Sum(nil)
+	return fmt.Sprintf("%x", md5Sum)
 }

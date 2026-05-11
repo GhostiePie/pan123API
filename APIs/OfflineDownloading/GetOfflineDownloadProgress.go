@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetOfflineDownloadProgressBody struct {
@@ -15,11 +15,11 @@ type GetOfflineDownloadProgressData struct {
 	Status  int     `json:"status"`
 }
 type GetOfflineDownloadProgressResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetOfflineDownloadProgressData `json:"data"`
 }
 
-func GetOfflineDownloadProgress(c *ClientAndMethods.APIClient, getOfflineDownloadProgressBody GetOfflineDownloadProgressBody, config ClientAndMethods.APIConfig) (GetOfflineDownloadProgressResponse, error) {
+func GetOfflineDownloadProgress(c *Client.APIClient, getOfflineDownloadProgressBody GetOfflineDownloadProgressBody, config Client.APIConfig) (GetOfflineDownloadProgressResponse, error) {
 	url := config.Domain + config.GetOfflineDownloadProgressAPI + "?taskID=" + strconv.Itoa(getOfflineDownloadProgressBody.TaskID)
 
 	body, err := c.GetQuery(url)

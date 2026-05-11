@@ -1,4 +1,4 @@
-package ClientAndMethods
+package Client
 
 import (
 	"io"

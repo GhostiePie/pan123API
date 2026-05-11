@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetShareLinkListBody struct {
@@ -31,11 +31,11 @@ type GetShareLinkListData struct {
 	ShareList   []ShareListItem `json:"shareList"`
 }
 type GetShareLinkListResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetShareLinkListData `json:"data"`
 }
 
-func GetShareLinkList(c *ClientAndMethods.APIClient, getShareLinkListBody GetShareLinkListBody, config ClientAndMethods.APIConfig) (GetShareLinkListResponse, error) {
+func GetShareLinkList(c *Client.APIClient, getShareLinkListBody GetShareLinkListBody, config Client.APIConfig) (GetShareLinkListResponse, error) {
 	url := config.Domain + config.GetShareLinkListAPI +
 		"?limit=" + strconv.Itoa(getShareLinkListBody.Limit)
 	if getShareLinkListBody.LastShareId != 0 {

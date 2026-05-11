@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetDirectLinkTrafficLogsBody struct {
@@ -28,11 +28,11 @@ type GetDirectLinkTrafficLogsData struct {
 	List  []DirectLinkTrafficLog `json:"list"`
 }
 type GetDirectLinkTrafficLogsResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetDirectLinkTrafficLogsData `json:"data"`
 }
 
-func GetDirectLinkTrafficLogs(c *ClientAndMethods.APIClient, getDirectLinkTrafficLogsBody GetDirectLinkTrafficLogsBody, config ClientAndMethods.APIConfig) (GetDirectLinkTrafficLogsResponse, error) {
+func GetDirectLinkTrafficLogs(c *Client.APIClient, getDirectLinkTrafficLogsBody GetDirectLinkTrafficLogsBody, config Client.APIConfig) (GetDirectLinkTrafficLogsResponse, error) {
 	url := c.Config.Domain + c.Config.GetDirectLinkTrafficLogsAPI + "?pageNum=" + strconv.Itoa(getDirectLinkTrafficLogsBody.PageNum) + "&pageSize=" + strconv.Itoa(getDirectLinkTrafficLogsBody.PageSize) + "&startTime=" + url.QueryEscape(getDirectLinkTrafficLogsBody.StartTime) + "&endTime=" + url.QueryEscape(getDirectLinkTrafficLogsBody.EndTime)
 
 	body, err := c.GetQuery(url)

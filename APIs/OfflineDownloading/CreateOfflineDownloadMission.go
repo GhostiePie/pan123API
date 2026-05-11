@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type CreateOfflineDownloadMissionBody struct {
@@ -19,11 +19,11 @@ type CreateOfflineDownloadMissionData struct {
 }
 
 type CreateOfflineDownloadMissionResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data CreateOfflineDownloadMissionData `json:"data"`
 }
 
-func CreateOfflineDownloadMission(c *ClientAndMethods.APIClient, createOfflineDownloadMissionBody CreateOfflineDownloadMissionBody) (CreateOfflineDownloadMissionResponse, error) {
+func CreateOfflineDownloadMission(c *Client.APIClient, createOfflineDownloadMissionBody CreateOfflineDownloadMissionBody) (CreateOfflineDownloadMissionResponse, error) {
 	url := c.Config.Domain + c.Config.CreateOfflineDownloadMissionAPI
 
 	jsonData, err := json.Marshal(createOfflineDownloadMissionBody)

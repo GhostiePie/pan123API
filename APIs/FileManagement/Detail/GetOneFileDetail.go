@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetOneFileDetailBody struct {
@@ -24,11 +24,11 @@ type GetOneFileDetailData struct {
 }
 
 type GetOneFileDetailResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetOneFileDetailData `json:"data"`
 }
 
-func GetOneFileDetail(c *ClientAndMethods.APIClient, getOneFileDetailBody GetOneFileDetailBody) (GetOneFileDetailResponse, error) {
+func GetOneFileDetail(c *Client.APIClient, getOneFileDetailBody GetOneFileDetailBody) (GetOneFileDetailResponse, error) {
 	url := c.Config.Domain + c.Config.GetOneFileDetailAPI + "?fileID=" + strconv.Itoa(getOneFileDetailBody.FileID)
 
 	body, err := c.GetQuery(url)

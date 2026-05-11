@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type UpdateIPBlacklistListBody struct {
@@ -14,11 +14,11 @@ type UpdateIPBlacklistListBody struct {
 type UpdateIPBlacklistListData struct{}
 
 type UpdateIPBlacklistListResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data *UpdateIPBlacklistListData `json:"data"`
 }
 
-func UpdateIPBlacklistList(c *ClientAndMethods.APIClient, updateIPBlacklistListBody UpdateIPBlacklistListBody) (UpdateIPBlacklistListResponse, error) {
+func UpdateIPBlacklistList(c *Client.APIClient, updateIPBlacklistListBody UpdateIPBlacklistListBody) (UpdateIPBlacklistListResponse, error) {
 	url := c.Config.Domain + c.Config.UpdateIPBlacklistListAPI
 
 	jsonData, err := json.Marshal(updateIPBlacklistListBody)

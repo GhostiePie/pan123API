@@ -3,7 +3,7 @@ package IPBlacklistConfiguration
 import (
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetIPBlacklistListData struct {
@@ -11,11 +11,11 @@ type GetIPBlacklistListData struct {
 	Status int      `json:"status"`
 }
 type GetIPBlacklistListResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetIPBlacklistListData `json:"data"`
 }
 
-func GetIPBlacklistList(c *ClientAndMethods.APIClient) (GetIPBlacklistListResponse, error) {
+func GetIPBlacklistList(c *Client.APIClient) (GetIPBlacklistListResponse, error) {
 	url := c.Config.Domain + c.Config.GetIPBlacklistListAPI
 	resp, err := c.GetQuery(url)
 	if err != nil {

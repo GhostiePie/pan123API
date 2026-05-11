@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type DisableDirectLinkBody struct {
@@ -14,11 +14,11 @@ type DisableDirectLinkData struct {
 	Filename string `json:"filename"`
 }
 type DisableDirectLinkResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data DisableDirectLinkData `json:"data"`
 }
 
-func DisableDirectLink(c *ClientAndMethods.APIClient, disableDirectLinkBody DisableDirectLinkBody, config ClientAndMethods.APIConfig) (DisableDirectLinkResponse, error) {
+func DisableDirectLink(c *Client.APIClient, disableDirectLinkBody DisableDirectLinkBody, config Client.APIConfig) (DisableDirectLinkResponse, error) {
 	url := c.Config.Domain + c.Config.DisableDirectLinkAPI
 
 	jsonData, err := json.Marshal(disableDirectLinkBody)

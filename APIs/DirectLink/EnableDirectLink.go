@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type EnableDirectLinkBody struct {
@@ -14,11 +14,11 @@ type EnableDirectLinkData struct {
 	Filename string `json:"filename"`
 }
 type EnableDirectLinkResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data EnableDirectLinkData `json:"data"`
 }
 
-func EnableDirectLink(c *ClientAndMethods.APIClient, enableDirectLinkBody EnableDirectLinkBody, config ClientAndMethods.APIConfig) (EnableDirectLinkResponse, error) {
+func EnableDirectLink(c *Client.APIClient, enableDirectLinkBody EnableDirectLinkBody, config Client.APIConfig) (EnableDirectLinkResponse, error) {
 	url := c.Config.Domain + c.Config.EnableDirectLinkAPI
 
 	jsonData, err := json.Marshal(enableDirectLinkBody)
