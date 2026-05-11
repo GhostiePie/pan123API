@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type RecoverFileByPathBody struct {
@@ -15,11 +15,11 @@ type RecoverFileByPathBody struct {
 type RecoverFileByPathData struct{}
 
 type RecoverFileByPathResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data *RecoverFileByPathData `json:"data"`
 }
 
-func RecoverFileByPath(c *ClientAndMethods.APIClient, recoverFileByPathBody RecoverFileByPathBody) (RecoverFileByPathResponse, error) {
+func RecoverFileByPath(c *Client.APIClient, recoverFileByPathBody RecoverFileByPathBody) (RecoverFileByPathResponse, error) {
 	url := c.Config.Domain + c.Config.RecoverFileByPathAPI
 
 	jsonData, err := json.Marshal(recoverFileByPathBody)

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type BatchFilesRenameItem struct {
@@ -32,11 +32,11 @@ type BatchFilesRenameData struct {
 }
 
 type BatchFilesRenameResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data BatchFilesRenameData `json:"data"`
 }
 
-func BatchFilesRename(c *ClientAndMethods.APIClient, batchFilesRenameBody BatchFilesRenameBody) (BatchFilesRenameResponse, error) {
+func BatchFilesRename(c *Client.APIClient, batchFilesRenameBody BatchFilesRenameBody) (BatchFilesRenameResponse, error) {
 	url := c.Config.Domain + c.Config.BatchFilesRenameAPI
 
 	jsonData, err := json.Marshal(batchFilesRenameBody)

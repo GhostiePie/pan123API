@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type CopyBatchFilesProgressBody struct {
@@ -17,11 +17,11 @@ type CopyBatchFilesProgressData struct {
 }
 
 type CopyBatchFilesProgressResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data CopyBatchFilesProgressData `json:"data"`
 }
 
-func CopyBatchFilesProgress(c *ClientAndMethods.APIClient, copyBatchFilesProgressBody CopyBatchFilesProgressBody) (CopyBatchFilesProgressResponse, error) {
+func CopyBatchFilesProgress(c *Client.APIClient, copyBatchFilesProgressBody CopyBatchFilesProgressBody) (CopyBatchFilesProgressResponse, error) {
 	url := c.Config.Domain + c.Config.CopyBatchFilesProgressAPI + "?taskId=" + strconv.Itoa(copyBatchFilesProgressBody.TaskId)
 
 	body, err := c.GetQuery(url)

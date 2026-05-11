@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type CreateShareLinkBody struct {
@@ -23,11 +23,11 @@ type CreateShareLinkData struct {
 }
 
 type CreateShareLinkResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data CreateShareLinkData `json:"data"`
 }
 
-func CreateShareLink(c *ClientAndMethods.APIClient, createShareLinkBody CreateShareLinkBody) (CreateShareLinkResponse, error) {
+func CreateShareLink(c *Client.APIClient, createShareLinkBody CreateShareLinkBody) (CreateShareLinkResponse, error) {
 	url := c.Config.Domain + c.Config.CreateShareLinkAPI
 
 	jsonData, err := json.Marshal(createShareLinkBody)

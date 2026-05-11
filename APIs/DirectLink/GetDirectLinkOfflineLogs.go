@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetDirectLinkOfflineLogsBody struct {
@@ -26,11 +26,11 @@ type GetDirectLinkOfflineLogsData struct {
 	List  []DirectLinkOfflineLog `json:"list"`
 }
 type GetDirectLinkOfflineLogsResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetDirectLinkOfflineLogsData `json:"data"`
 }
 
-func GetDirectLinkOfflineLogs(c *ClientAndMethods.APIClient, getDirectLinkOfflineLogsBody GetDirectLinkOfflineLogsBody, config ClientAndMethods.APIConfig) (GetDirectLinkOfflineLogsResponse, error) {
+func GetDirectLinkOfflineLogs(c *Client.APIClient, getDirectLinkOfflineLogsBody GetDirectLinkOfflineLogsBody, config Client.APIConfig) (GetDirectLinkOfflineLogsResponse, error) {
 	url := c.Config.Domain + c.Config.GetDirectLinkOfflineLogsAPI + "?startHour=" + url.QueryEscape(getDirectLinkOfflineLogsBody.StartHour) + "&endHour=" + url.QueryEscape(getDirectLinkOfflineLogsBody.EndHour) + "&pageNum=" + strconv.Itoa(getDirectLinkOfflineLogsBody.PageNum) + "&pageSize=" + strconv.Itoa(getDirectLinkOfflineLogsBody.PageSize)
 
 	body, err := c.GetQuery(url)

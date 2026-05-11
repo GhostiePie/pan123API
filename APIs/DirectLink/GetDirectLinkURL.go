@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetDirectLinkURLBody struct {
@@ -14,11 +14,11 @@ type GetDirectLinkURLData struct {
 	URL string `json:"url"`
 }
 type GetDirectLinkURLResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetDirectLinkURLData `json:"data"`
 }
 
-func GetDirectLinkURL(c *ClientAndMethods.APIClient, getDirectLinkURLBody GetDirectLinkURLBody, config ClientAndMethods.APIConfig) (GetDirectLinkURLResponse, error) {
+func GetDirectLinkURL(c *Client.APIClient, getDirectLinkURLBody GetDirectLinkURLBody, config Client.APIConfig) (GetDirectLinkURLResponse, error) {
 	url := c.Config.Domain + c.Config.GetDirectLinkURLAPI + "?fileID=" + strconv.Itoa(getDirectLinkURLBody.FileID)
 
 	body, err := c.GetQuery(url)

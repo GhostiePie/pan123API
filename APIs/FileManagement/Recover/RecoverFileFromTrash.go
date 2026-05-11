@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type RecoverFileFromTrashBody struct {
@@ -16,11 +16,11 @@ type RecoverFileFromTrashData struct {
 }
 
 type RecoverFileFromTrashResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data RecoverFileFromTrashData `json:"data"`
 }
 
-func RecoverFileFromTrash(c *ClientAndMethods.APIClient, recoverFileFromTrashBody RecoverFileFromTrashBody) (RecoverFileFromTrashResponse, error) {
+func RecoverFileFromTrash(c *Client.APIClient, recoverFileFromTrashBody RecoverFileFromTrashBody) (RecoverFileFromTrashResponse, error) {
 	url := c.Config.Domain + c.Config.RecoverFileFromTrashAPI
 
 	jsonData, err := json.Marshal(recoverFileFromTrashBody)

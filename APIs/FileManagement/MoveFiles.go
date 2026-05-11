@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type MoveFilesBody struct {
@@ -13,11 +13,11 @@ type MoveFilesBody struct {
 }
 type MoveFilesData struct{}
 type MoveFilesResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data *MoveFilesData `json:"data"`
 }
 
-func MoveFiles(c *ClientAndMethods.APIClient, moveFilesBody MoveFilesBody) (MoveFilesResponse, error) {
+func MoveFiles(c *Client.APIClient, moveFilesBody MoveFilesBody) (MoveFilesResponse, error) {
 	url := c.Config.Domain + c.Config.MoveFilesAPI
 
 	jsonData, err := json.Marshal(moveFilesBody)

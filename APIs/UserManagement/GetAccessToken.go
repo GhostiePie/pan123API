@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetAccessTokenData struct {
@@ -13,7 +13,7 @@ type GetAccessTokenData struct {
 	ExpiredAt   time.Time `json:"expiredAt"`
 }
 type GetAccessTokenResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetAccessTokenData `json:"data"`
 }
 
@@ -22,7 +22,7 @@ type GetAccessTokenBody struct {
 	ClientSecret string `json:"clientSecret"`
 }
 
-func GetAccessToken(c *ClientAndMethods.APIClient, getAccessTokenBody GetAccessTokenBody) (GetAccessTokenResponse, error) {
+func GetAccessToken(c *Client.APIClient, getAccessTokenBody GetAccessTokenBody) (GetAccessTokenResponse, error) {
 	url := c.Config.Domain + c.Config.AccessTokenAPI
 	data, err := json.Marshal(getAccessTokenBody)
 	if err != nil {

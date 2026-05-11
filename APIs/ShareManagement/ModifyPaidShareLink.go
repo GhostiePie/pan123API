@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type ModifyPaidShareLinkBody struct {
@@ -15,11 +15,11 @@ type ModifyPaidShareLinkBody struct {
 }
 type ModifyPaidShareLinkData struct{}
 type ModifyPaidShareLinkResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data *ModifyPaidShareLinkData `json:"data"`
 }
 
-func ModifyPaidShareLink(c *ClientAndMethods.APIClient, modifyPaidShareLinkBody ModifyPaidShareLinkBody) (ModifyPaidShareLinkResponse, error) {
+func ModifyPaidShareLink(c *Client.APIClient, modifyPaidShareLinkBody ModifyPaidShareLinkBody) (ModifyPaidShareLinkResponse, error) {
 	url := c.Config.Domain + c.Config.ModifyPaidShareLinkAPI
 
 	jsonData, err := json.Marshal(modifyPaidShareLinkBody)

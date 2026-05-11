@@ -8,7 +8,7 @@ import (
 	"mime/multipart"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type OneStepUploadBody struct {
@@ -26,11 +26,11 @@ type OneStepUploadData struct {
 	Completed bool `json:"completed"`
 }
 type OneStepUploadResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data OneStepUploadData `json:"data"`
 }
 
-func OneStepUpload(c *ClientAndMethods.APIClient, oneStepUploadBody OneStepUploadBody) (OneStepUploadResponse, error) {
+func OneStepUpload(c *Client.APIClient, oneStepUploadBody OneStepUploadBody) (OneStepUploadResponse, error) {
 	url := c.Config.Domain + c.Config.OneStepUploadAPI
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)

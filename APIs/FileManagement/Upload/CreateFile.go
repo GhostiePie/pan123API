@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type CreateFileBody struct {
@@ -24,11 +24,11 @@ type CreateFileData struct {
 	Servers     []string `json:"servers"`
 }
 type CreateFileResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data CreateFileData `json:"data"`
 }
 
-func CreateFile(c *ClientAndMethods.APIClient, createFileBody CreateFileBody) (CreateFileResponse, error) {
+func CreateFile(c *Client.APIClient, createFileBody CreateFileBody) (CreateFileResponse, error) {
 	url := c.Config.Domain + c.Config.CreateFileAPI
 	data, err := json.Marshal(createFileBody)
 	if err != nil {

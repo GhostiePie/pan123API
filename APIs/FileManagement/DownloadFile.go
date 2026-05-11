@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type DownloadFileBody struct {
@@ -17,11 +17,11 @@ type DownloadFileData struct {
 }
 
 type DownloadFileResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data DownloadFileData `json:"data"`
 }
 
-func DownloadFile(c *ClientAndMethods.APIClient, downloadFileBody DownloadFileBody) (DownloadFileResponse, error) {
+func DownloadFile(c *Client.APIClient, downloadFileBody DownloadFileBody) (DownloadFileResponse, error) {
 	url := c.Config.Domain + c.Config.DownloadFileAPI + "?fileId=" + strconv.Itoa(downloadFileBody.FileID)
 
 	body, err := c.GetQuery(url)
@@ -37,10 +37,10 @@ func DownloadFile(c *ClientAndMethods.APIClient, downloadFileBody DownloadFileBo
 
 	if downloadFileResponse.Code != 0 {
 		if downloadFileResponse.Code == 5113 {
-			return downloadFileResponse, ClientAndMethods.ErrInsufficientDownloadTraffic
+			return downloadFileResponse, Client.ErrInsufficientDownloadTraffic
 		}
 		if downloadFileResponse.Code == 5066 {
-			return downloadFileResponse, ClientAndMethods.ErrFileNotExists
+			return downloadFileResponse, Client.ErrFileNotExists
 		}
 		return downloadFileResponse, errors.New(downloadFileResponse.Message)
 	}

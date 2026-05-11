@@ -3,7 +3,7 @@ package UserManagement
 import (
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetUserInfoBody struct{}
@@ -35,11 +35,11 @@ type GetUserInfoData struct {
 	DeveloperInfo  DeveloperInfo `json:"developerInfo"`
 }
 type GetUserInfoResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetUserInfoData `json:"data"`
 }
 
-func GetUserInfo(c *ClientAndMethods.APIClient) (GetUserInfoResponse, error) {
+func GetUserInfo(c *Client.APIClient) (GetUserInfoResponse, error) {
 	url := c.Config.Domain + c.Config.GetUserInfoAPI
 	resp, err := c.GetQuery(url)
 	if err != nil {

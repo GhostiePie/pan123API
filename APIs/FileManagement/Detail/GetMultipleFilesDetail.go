@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetMultipleFilesDetailBody struct {
@@ -30,11 +30,11 @@ type GetMultipleFilesDetailData struct {
 	FileList []FileDetailItem `json:"fileList"`
 }
 type GetMultipleFilesDetailResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data GetMultipleFilesDetailData `json:"data"`
 }
 
-func GetMultipleFilesDetail(c *ClientAndMethods.APIClient, getMultipleFilesDetailBody GetMultipleFilesDetailBody, config ClientAndMethods.APIConfig) (GetMultipleFilesDetailResponse, error) {
+func GetMultipleFilesDetail(c *Client.APIClient, getMultipleFilesDetailBody GetMultipleFilesDetailBody, config Client.APIConfig) (GetMultipleFilesDetailResponse, error) {
 	url := config.Domain + config.GetMultipleFilesDetailAPI
 
 	jsonData, err := json.Marshal(getMultipleFilesDetailBody)

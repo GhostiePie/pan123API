@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type UploadCompleteBody struct {
@@ -12,16 +12,16 @@ type UploadCompleteBody struct {
 }
 
 type UploadCompleteData struct {
-	Completed bool   `json:"completed"`
-	FileID    string `json:"fileId"`
+	Completed bool  `json:"completed"`
+	FileID    int64 `json:"fileId"`
 }
 
 type UploadCompleteResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data UploadCompleteData `json:"data"`
 }
 
-func UploadComplete(c *ClientAndMethods.APIClient, uploadCompleteBody UploadCompleteBody) (UploadCompleteResponse, error) {
+func UploadComplete(c *Client.APIClient, uploadCompleteBody UploadCompleteBody) (UploadCompleteResponse, error) {
 	url := c.Config.Domain + c.Config.UploadCompleteAPI
 	data := "preuploadID=" + uploadCompleteBody.PreuploadID
 

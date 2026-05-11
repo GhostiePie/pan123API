@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type GetUploadURLResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data []string `json:"data"`
 }
 
-func GetUploadURL(c *ClientAndMethods.APIClient) (GetUploadURLResponse, error) {
+func GetUploadURL(c *Client.APIClient) (GetUploadURLResponse, error) {
 	url := c.Config.Domain + c.Config.GetFileListAPI
 	resp, err := c.GetQuery(url)
 	if err != nil {

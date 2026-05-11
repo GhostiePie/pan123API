@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/GhostiePie/pan123API/ClientAndMethods"
+	"github.com/GhostiePie/pan123API/Client"
 )
 
 type SwitchIPBlacklistListBody struct {
@@ -16,11 +16,11 @@ type SwitchIPBlacklistListData struct {
 }
 
 type SwitchIPBlacklistListResponse struct {
-	ClientAndMethods.Response
+	Client.Response
 	Data SwitchIPBlacklistListData `json:"data"`
 }
 
-func SwitchIPBlacklistList(c *ClientAndMethods.APIClient, switchIPBlacklistListBody SwitchIPBlacklistListBody) (SwitchIPBlacklistListResponse, error) {
+func SwitchIPBlacklistList(c *Client.APIClient, switchIPBlacklistListBody SwitchIPBlacklistListBody) (SwitchIPBlacklistListResponse, error) {
 	url := c.Config.Domain + c.Config.SwitchIPBlacklistListAPI
 
 	jsonData, err := json.Marshal(switchIPBlacklistListBody)
