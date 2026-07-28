@@ -9,6 +9,8 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+
+	"gopkg.in/yaml.v2"
 )
 
 var (
@@ -94,13 +96,26 @@ func ReadAPIClientFromJson(jsonStr string) (APIClient, error) {
 	return apiClient, err
 }
 
-func ReadAPIClientFromFile(filePath string) (*APIClient, error) {
+func ReadAPIClientFromJsonFile(filePath string) (*APIClient, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return &APIClient{}, err
 	}
 	var apiClient APIClient
 	err = json.Unmarshal(data, &apiClient)
+	if err != nil {
+		return &apiClient, err
+	}
+	return &apiClient, nil
+}
+
+func ReadAPIClientFromYamlFile(filePath string) (*APIClient, error) {
+	data, err := os.ReadFile(filePath)
+	if err != nil {
+		return &APIClient{}, err
+	}
+	var apiClient APIClient
+	err = yaml.Unmarshal(data, &apiClient)
 	if err != nil {
 		return &apiClient, err
 	}
