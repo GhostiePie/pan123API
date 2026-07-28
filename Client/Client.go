@@ -1,11 +1,12 @@
 package Client
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 type APIConfig struct {
@@ -96,7 +97,7 @@ func NewAPIClient(configPath *string) (*APIClient, error) {
 		}
 	} else {
 		log.Println("reading Config File.")
-		apiClient, err = ReadAPIClientFromFile(*configPath)
+		apiClient, err = ReadAPIClientFromYamlFile(*configPath)
 		if err != nil {
 			return nil, err
 		}
@@ -105,9 +106,9 @@ func NewAPIClient(configPath *string) (*APIClient, error) {
 	return apiClient, nil
 }
 
-// SaveToFile 将APIClient以json格式存储至文件
+// SaveToFile 将APIClient以yaml格式存储至文件
 func (c *APIClient) SaveToFile(filePath string) error {
-	headerStr, err := json.Marshal(c)
+	headerStr, err := yaml.Marshal(c)
 	if err != nil {
 		return err
 	}
