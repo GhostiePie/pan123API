@@ -14,7 +14,7 @@ func (c *APIClient) Get(url string, contentType string, body io.Reader) ([]byte,
 
 	req.Header.Set("Content-Type", contentType)
 	req.Header.Set("Authorization", c.Authorization)
-	req.Header.Set("Platform", c.Platform)
+	req.Header.Set("Platform", c.Config.Platform)
 
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
@@ -40,7 +40,7 @@ func (c *APIClient) Post(url string, contentType string, body io.Reader) ([]byte
 	}
 	req.Header.Set("Content-Type", contentType)
 	req.Header.Set("Authorization", c.Authorization)
-	req.Header.Set("Platform", c.Platform)
+	req.Header.Set("Platform", c.Config.Platform)
 
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {
@@ -66,7 +66,7 @@ func (c *APIClient) Put(url string, contentType string, body io.Reader) ([]byte,
 	}
 	req.Header.Set("Content-Type", contentType)
 	req.Header.Set("Authorization", c.Authorization)
-	req.Header.Set("Platform", c.Platform)
+	req.Header.Set("Platform", c.Config.Platform)
 
 	resp, err := c.HttpClient.Do(req)
 	if err != nil {

@@ -12,6 +12,7 @@ import (
 type APIConfig struct {
 	//UserFile       string `json:"userFile"`
 	Domain                                    string `json:"domain"`
+	Platform                                  string `json:"platform"`
 	AccessTokenAPI                            string `json:"access_token_api"`
 	CreateDirectoryAPI                        string `json:"create_directory_api"`
 	CreateFileAPI                             string `json:"create_file_api"`
@@ -74,15 +75,13 @@ type Response struct {
 }
 
 type APIClient struct {
-	ClientID      string       `json:"clientID"`
-	ClientSecret  string       `json:"clientSecret"`
-	AccessToken   string       `json:"accessToken"`
-	ExpiredAt     time.Time    `json:"expiredAt"`
-	Authorization string       `json:"Authorization"`
-	Platform      string       `json:"Platform"`
-	ContentType   string       `json:"Content-Type"`
-	HttpClient    *http.Client `json:"-"`
-	Config        *APIConfig   `json:"-"`
+	ClientID      string       `json:"clientID" yaml:"Client_id"`
+	ClientSecret  string       `json:"clientSecret" yaml:"Client_secret"`
+	AccessToken   string       `json:"accessToken" yaml:"access_token"`
+	ExpiredAt     time.Time    `json:"expiredAt" yaml:"expired_at"`
+	Authorization string       `json:"Authorization" yaml:"-"`
+	HttpClient    *http.Client `json:"-" yaml:"-"`
+	Config        *APIConfig   `json:"-" yaml:"-"`
 }
 
 func NewAPIClient(configPath *string) (*APIClient, error) {
@@ -93,7 +92,8 @@ func NewAPIClient(configPath *string) (*APIClient, error) {
 		log.Println("using Default Config.")
 
 		apiClient = &APIClient{
-			Config: &DefaultConfig,
+			Config:     &DefaultConfig,
+			HttpClient: &http.Client{},
 		}
 	} else {
 		log.Println("reading Config File.")
@@ -121,6 +121,7 @@ func (c *APIClient) SaveToFile(filePath string) error {
 
 var DefaultConfig = APIConfig{
 	Domain:                                    "https://open-api.123pan.com",
+	Platform:                                  "open_platform",
 	AccessTokenAPI:                            "/api/v1/access_token",
 	CreateFileAPI:                             "/upload/v2/file/create",
 	CreateDirectoryAPI:                        "/upload/v1/file/mkdir",
