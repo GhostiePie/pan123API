@@ -7,10 +7,13 @@ import (
 	"github.com/GhostiePie/pan123API/Client"
 )
 
+// GetPaidShareLinkListBody 获取付费分享链接列表的请求体
 type GetPaidShareLinkListBody struct {
 	Limit       int `json:"limit"`
 	LastShareId int `json:"lastShareId,omitempty"`
 }
+
+// PaidShareListItem 付费分享链接列表项
 type PaidShareListItem struct {
 	ShareId            int     `json:"shareId"`
 	ShareKey           string  `json:"shareKey"`
@@ -30,15 +33,20 @@ type PaidShareListItem struct {
 	CreateAt           string  `json:"createAt,omitempty"`
 	UpdateAt           string  `json:"updateAt,omitempty"`
 }
+
+// GetPaidShareLinkListData 获取付费分享链接列表的返回数据
 type GetPaidShareLinkListData struct {
 	LastShareId int                 `json:"lastShareId"`
 	ShareList   []PaidShareListItem `json:"shareList"`
 }
+
+// GetPaidShareLinkListResponse 获取付费分享链接列表的响应
 type GetPaidShareLinkListResponse struct {
 	Client.Response
 	Data GetPaidShareLinkListData `json:"data"`
 }
 
+// GetPaidShareLinkList 获取付费分享链接列表
 func GetPaidShareLinkList(c *Client.APIClient, getPaidShareLinkListBody GetPaidShareLinkListBody, config Client.APIConfig) (GetPaidShareLinkListResponse, error) {
 	url := config.Domain + config.GetPaidShareLinkListAPI +
 		"?limit=" + strconv.Itoa(getPaidShareLinkListBody.Limit)

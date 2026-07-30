@@ -9,6 +9,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// APIConfig API配置，包含所有API的路径端点
 type APIConfig struct {
 	//UserFile       string `json:"userFile"`
 	Domain                                    string `json:"domain"`
@@ -68,12 +69,14 @@ type APIConfig struct {
 	ImageHostGetOfflineMigrationMissionAPI    string `json:"get_offline_migration_mission_oss_api"`
 }
 
+// Response 通用API响应结构，包含响应状态码、消息和追踪ID
 type Response struct {
 	Code     int    `json:"code"`
 	Message  string `json:"message"`
 	XTraceID string `json:"x-traceID"`
 }
 
+// APIClient 123云盘API客户端，包含认证信息和HTTP客户端
 type APIClient struct {
 	ClientID      string       `json:"clientID" yaml:"Client_id"`
 	ClientSecret  string       `json:"clientSecret" yaml:"Client_secret"`
@@ -84,6 +87,7 @@ type APIClient struct {
 	Config        *APIConfig   `json:"-" yaml:"-"`
 }
 
+// NewAPIClient 创建API客户端实例，支持从YAML配置文件或默认配置初始化
 func NewAPIClient(configPath *string) (*APIClient, error) {
 	var apiClient *APIClient
 	var err error
@@ -103,6 +107,10 @@ func NewAPIClient(configPath *string) (*APIClient, error) {
 		}
 	}
 
+	apiClient.Authorization = "Bearer " + apiClient.AccessToken
+	apiClient.HttpClient = http.DefaultClient
+	apiClient.Config = &DefaultConfig
+
 	return apiClient, nil
 }
 
@@ -119,6 +127,7 @@ func (c *APIClient) SaveToFile(filePath string) error {
 	return nil
 }
 
+// DefaultConfig 默认API配置，使用123云盘开放平台的默认端点
 var DefaultConfig = APIConfig{
 	Domain:                                    "https://open-api.123pan.com",
 	Platform:                                  "open_platform",

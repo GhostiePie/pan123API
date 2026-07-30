@@ -7,11 +7,13 @@ import (
 	"github.com/GhostiePie/pan123API/Client"
 )
 
+// GetUploadURLResponse 获取上传URL响应
 type GetUploadURLResponse struct {
 	Client.Response
-	Data []string `json:"data"`
+	Data []string `json:"data"` // 上传服务器URL列表
 }
 
+// GetUploadURL 获取可用的上传服务器URL列表
 func GetUploadURL(c *Client.APIClient) (GetUploadURLResponse, error) {
 	url := c.Config.Domain + c.Config.GetFileListAPI
 	resp, err := c.GetQuery(url)

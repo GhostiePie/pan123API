@@ -8,19 +8,23 @@ import (
 	"github.com/GhostiePie/pan123API/Client"
 )
 
+// DownloadFileBody 下载文件请求体
 type DownloadFileBody struct {
-	FileID int `json:"fileID"`
+	FileID int `json:"fileID"` // 文件ID
 }
 
+// DownloadFileData 下载文件返回的数据
 type DownloadFileData struct {
-	DownloadUrl string `json:"downloadUrl"`
+	DownloadUrl string `json:"downloadUrl"` // 下载链接
 }
 
+// DownloadFileResponse 下载文件响应
 type DownloadFileResponse struct {
 	Client.Response
 	Data DownloadFileData `json:"data"`
 }
 
+// DownloadFile 获取文件的下载链接
 func DownloadFile(c *Client.APIClient, downloadFileBody DownloadFileBody) (DownloadFileResponse, error) {
 	url := c.Config.Domain + c.Config.DownloadFileAPI + "?fileId=" + strconv.Itoa(downloadFileBody.FileID)
 
