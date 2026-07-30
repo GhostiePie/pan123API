@@ -11,6 +11,7 @@ import (
 	"github.com/GhostiePie/pan123API/Client"
 )
 
+// UploadSliceBody 分片上传请求体
 type UploadSliceBody struct {
 	PreUploadID string   `json:"preuploadID"` // 必填	预上传ID
 	SliceNo     int      `json:"sliceNo"`     // 必填	分片序号，从1开始自增
@@ -19,10 +20,12 @@ type UploadSliceBody struct {
 	Servers     []string `json:"servers"`     // 注：非Body参数！该API需要CreateFile()的返回值中的servers值作为域名
 }
 
+// UploadSliceResponse 分片上传响应
 type UploadSliceResponse struct {
 	Client.Response
 }
 
+// UploadSlice 上传单个分片数据到服务器
 func UploadSlice(c *Client.APIClient, uploadSliceBody UploadSliceBody) (UploadSliceResponse, error) {
 
 	url := uploadSliceBody.Servers[0] + c.Config.UploadSliceAPI

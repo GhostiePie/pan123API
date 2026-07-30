@@ -7,9 +7,12 @@ import (
 	"github.com/GhostiePie/pan123API/Client"
 )
 
+// GetMultipleFilesDetailBody 获取多文件详情请求体
 type GetMultipleFilesDetailBody struct {
-	FileIds []int `json:"fileIds"`
+	FileIds []int `json:"fileIds"` // 文件ID列表
 }
+
+// FileDetailItem 单个文件详情条目
 type FileDetailItem struct {
 	FileId       int    `json:"fileId"`
 	Filename     string `json:"filename"`
@@ -26,14 +29,19 @@ type FileDetailItem struct {
 	CreateAt     string `json:"createAt"`
 	UpdateAt     string `json:"updateAt"`
 }
+
+// GetMultipleFilesDetailData 多文件详情数据
 type GetMultipleFilesDetailData struct {
-	FileList []FileDetailItem `json:"fileList"`
+	FileList []FileDetailItem `json:"fileList"` // 文件详情列表
 }
+
+// GetMultipleFilesDetailResponse 获取多文件详情响应
 type GetMultipleFilesDetailResponse struct {
 	Client.Response
 	Data GetMultipleFilesDetailData `json:"data"`
 }
 
+// GetMultipleFilesDetail 批量获取多个文件的详细信息
 func GetMultipleFilesDetail(c *Client.APIClient, getMultipleFilesDetailBody GetMultipleFilesDetailBody, config Client.APIConfig) (GetMultipleFilesDetailResponse, error) {
 	url := config.Domain + config.GetMultipleFilesDetailAPI
 

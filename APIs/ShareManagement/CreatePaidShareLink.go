@@ -7,6 +7,7 @@ import (
 	"github.com/GhostiePie/pan123API/Client"
 )
 
+// CreatePaidShareLinkBody 创建付费分享链接的请求体
 type CreatePaidShareLinkBody struct {
 	ShareName          string `json:"shareName"`
 	FileIDList         string `json:"fileIDList"`
@@ -18,16 +19,19 @@ type CreatePaidShareLinkBody struct {
 	TrafficLimit       int64  `json:"trafficLimit,omitempty"`
 }
 
+// CreatePaidShareLinkData 创建付费分享链接的返回数据
 type CreatePaidShareLinkData struct {
 	ShareID  int    `json:"shareID"`
 	ShareKey string `json:"shareKey"`
 }
 
+// CreatePaidShareLinkResponse 创建付费分享链接的响应
 type CreatePaidShareLinkResponse struct {
 	Client.Response
 	Data CreatePaidShareLinkData `json:"data"`
 }
 
+// CreatePaidShareLink 创建付费分享链接
 func CreatePaidShareLink(c *Client.APIClient, createPaidShareLinkBody CreatePaidShareLinkBody) (CreatePaidShareLinkResponse, error) {
 	url := c.Config.Domain + c.Config.CreatePaidShareLinkAPI
 

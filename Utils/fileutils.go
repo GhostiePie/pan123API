@@ -83,6 +83,7 @@ func GetFileChunk(fileName string, start int, end int) ([]byte, error) {
 	return ReadChunk(file, start, end)
 }
 
+// CalcFileMD5 计算文件的MD5哈希值，调用后文件指针会指向文件末尾
 func CalcFileMD5(file *os.File) string {
 	hash := md5.New()
 

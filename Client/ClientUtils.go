@@ -14,11 +14,15 @@ import (
 )
 
 var (
+	// ErrInsufficientDownloadTraffic 下载流量不足错误
 	ErrInsufficientDownloadTraffic = errors.New("insufficient download traffic")
-	ErrFileNotExists               = errors.New("file not exists")
-	ErrGeneric                     = errors.New("api error")
+	// ErrFileNotExists 文件不存在错误
+	ErrFileNotExists = errors.New("file not exists")
+	// ErrGeneric 通用API错误
+	ErrGeneric = errors.New("api error")
 )
 
+// GetDefaultConfig 获取默认API配置
 func GetDefaultConfig() APIConfig {
 	return DefaultConfig
 }
@@ -88,6 +92,7 @@ func StructToQueryString(obj interface{}) (string, error) {
 	return values.Encode(), nil
 }
 
+// ReadAPIClientFromJson 从JSON字符串反序列化APIClient
 func ReadAPIClientFromJson(jsonStr string) (APIClient, error) {
 	var err error
 	apiClient := APIClient{}
@@ -96,6 +101,7 @@ func ReadAPIClientFromJson(jsonStr string) (APIClient, error) {
 	return apiClient, err
 }
 
+// ReadAPIClientFromJsonFile 从JSON文件读取并创建APIClient
 func ReadAPIClientFromJsonFile(filePath string) (*APIClient, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {
@@ -109,6 +115,7 @@ func ReadAPIClientFromJsonFile(filePath string) (*APIClient, error) {
 	return &apiClient, nil
 }
 
+// ReadAPIClientFromYamlFile 从YAML文件读取并创建APIClient
 func ReadAPIClientFromYamlFile(filePath string) (*APIClient, error) {
 	data, err := os.ReadFile(filePath)
 	if err != nil {

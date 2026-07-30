@@ -13,6 +13,7 @@ import (
 	"github.com/GhostiePie/pan123API/Utils"
 )
 
+// SimpleUploadFile 简化文件上传流程，自动处理分片上传和上传完成确认
 func SimpleUploadFile(client *Client.APIClient, filePath string, parentFileID int, fileName string) error {
 
 	file, err := os.Open(filePath)
