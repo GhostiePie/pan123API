@@ -23,7 +23,8 @@ import (
 
 func main() {
     // 创建API客户端
-    client, err := Client.NewAPIClient(nil) // nil 表示使用默认配置
+    configPath := "pan123config.yaml" // yaml定义见下文
+    client, err := Client.NewAPIClient(&configPath)
     if err != nil {
         log.Fatal(err)
     }
@@ -182,14 +183,15 @@ client, _ := Client.NewAPIClient(nil) // 使用默认配置
 自定义配置可以通过 YAML 文件加载：
 
 ```yaml
-Client_id: "your_client_id"
-Client_secret: "your_client_secret"
-access_token: "your_access_token"
+# 请务必保持该文件独立于其他配置文件，即为该SDK准备专门的配置文件，因自动更新token会写入该文件
+client_id: "your_client_id" # 必填
+client_secret: "your_client_secret" # 必填
+access_token: "your_access_token" # 非必填，NewAPIClient()会自动对比token是否过期并重新获取，然后写入该文件
 expired_at: "2024-01-01T00:00:00Z"
 ```
 
 ```go
-configPath := "config.yaml"
+configPath := "pan123config.yaml"
 client, err := Client.NewAPIClient(&configPath)
 ```
 
@@ -203,6 +205,3 @@ go fmt ./...
 go vet ./...
 ```
 
-## 许可证
-
-MIT
